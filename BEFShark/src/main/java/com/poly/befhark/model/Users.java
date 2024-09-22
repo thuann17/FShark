@@ -55,7 +55,7 @@ public class Users {
     private Images cover;
 
     @ManyToOne
-    @JoinColumn(name = "USERROLES")
+    @JoinColumn(name = "ROLES")
     private Userroles userRoles;
 
     @OneToMany(mappedBy = "user")
