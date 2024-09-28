@@ -1,5 +1,6 @@
 package com.poly.befhark.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -31,6 +32,6 @@ public class Notifications {
     private Posts post;
 
     @ManyToOne
-    @JoinColumn(name = "USER")
+    @JoinColumn(name = "USERNAME")
     private Users user;
 }

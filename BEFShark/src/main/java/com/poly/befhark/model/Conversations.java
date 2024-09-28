@@ -1,4 +1,5 @@
 package com.poly.befhark.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,8 +24,10 @@ public class Conversations {
     private Images avatar;
 
     @OneToMany(mappedBy = "conversation")
+    @JsonIgnore
     private List<Groupmembers> groupMembers;
 
     @OneToMany(mappedBy = "conversation")
+    @JsonIgnore
     private List<Messages> messages;
 }

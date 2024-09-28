@@ -1,5 +1,6 @@
 package com.poly.befhark.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -30,8 +31,10 @@ public class Trips {
     private String description;
 
     @OneToMany(mappedBy = "trip")
+    @JsonIgnore
     private List<Usertrips> userTrips;
 
     @OneToMany(mappedBy = "trip")
+    @JsonIgnore
     private List<Placetrips> placeTrips;
 }

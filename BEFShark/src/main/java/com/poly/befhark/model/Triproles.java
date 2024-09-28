@@ -1,5 +1,6 @@
 package com.poly.befhark.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,5 +18,6 @@ public class Triproles {
     private String role;
 
     @OneToMany(mappedBy = "tripRole")
+    @JsonIgnore
     private List<Usertrips> userTrips;
 }

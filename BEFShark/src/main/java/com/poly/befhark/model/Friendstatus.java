@@ -1,5 +1,6 @@
 package com.poly.befhark.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,5 +18,6 @@ public class Friendstatus {
     private String status;
 
     @OneToMany(mappedBy = "status")
+    @JsonIgnore
     private List<Friendrequests> friendRequests;
 }

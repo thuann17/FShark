@@ -1,9 +1,9 @@
 package com.poly.befhark.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import javax.management.Notification;
 import java.util.Date;
 import java.util.List;
 
@@ -59,15 +59,19 @@ public class Users {
     private Userroles userRoles;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Posts> posts;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Comments> comments;
 
     @OneToMany(mappedBy = "sender")
+    @JsonIgnore
     private List<Friendrequests> sentFriendRequests;
 
     @OneToMany(mappedBy = "userSrc")
+    @JsonIgnore
     private List<Friends> friends;
 
     @OneToMany(mappedBy = "user")
