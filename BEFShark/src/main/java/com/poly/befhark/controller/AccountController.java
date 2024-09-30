@@ -24,14 +24,19 @@ public class AccountController {
 
     @GetMapping("/{username}")
     public Users getAccountByName(@PathVariable String username) {
+
         return userService.getUserById(username);
     }
 
     @PutMapping("/{username}")
     public Users updateAccount(@RequestBody Users user, @PathVariable String username) {
         Users updatedUser = userService.updateUser(user, username);
-
         messagingTemplate.convertAndSend("/topic/account-status", updatedUser);
         return userService.updateUser(user, username);
+    }
+
+    @DeleteMapping("/{username}")
+    public void deleteAccount(@PathVariable String username) {
+        userService.deleteUser(username);
     }
 }

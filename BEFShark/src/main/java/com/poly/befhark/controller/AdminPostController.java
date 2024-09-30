@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RequestMapping("/api/post")
 public class AdminPostController {
     @Autowired
@@ -16,16 +17,16 @@ public class AdminPostController {
 
     @GetMapping
     public List<Posts> post() {
-        System.out.println(postService.getAllPost());
+
         return postService.getAllPost();
     }
-    @GetMapping("/{id}")
-    public Posts getPostById(@PathVariable int id) {
-        return postService.getPostById(id);
+    @GetMapping("/{idPost}")
+    public Posts getPostById(@PathVariable int idPost) {
+        return postService.getPostById(idPost);
     }
-    @DeleteMapping("/{id}")
-    public String deletePost(@PathVariable int id) {
-        postService.deletePostById(id);
-        return "success delete post" + id;
+    @DeleteMapping("/{idPost}")
+    public String deletePost(@PathVariable int idPost) {
+        postService.deletePostById(idPost);
+        return "success delete post" + idPost;
     }
 }

@@ -2,11 +2,13 @@ package com.poly.befhark.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Data
 @Table(name = "POSTS")
 public class Posts {
     @Id
