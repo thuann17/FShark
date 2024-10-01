@@ -1,6 +1,5 @@
 package com.poly.befhark.controller;
 
-import com.poly.befhark.DAO.PostDAO;
 import com.poly.befhark.model.Posts;
 import com.poly.befhark.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
