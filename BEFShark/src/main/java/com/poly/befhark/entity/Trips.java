@@ -1,4 +1,4 @@
-package com.poly.befhark.model;
+package com.poly.befhark.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

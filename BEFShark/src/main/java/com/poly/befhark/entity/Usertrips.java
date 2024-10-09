@@ -1,5 +1,4 @@
-package com.poly.befhark.model;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package com.poly.befhark.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 

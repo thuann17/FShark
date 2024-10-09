@@ -4,9 +4,13 @@ import com.poly.befhark.DAO.CommentDAO;
 import com.poly.befhark.DAO.LikeDAO;
 import com.poly.befhark.DAO.PostDAO;
 import com.poly.befhark.DAO.ShareDAO;
-import com.poly.befhark.model.Likes;
-import com.poly.befhark.model.Posts;
+import com.poly.befhark.DTO.PostDTO;
+import com.poly.befhark.entity.Posts;
+import com.poly.befhark.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -17,36 +21,34 @@ public class PostService {
     @Autowired
     private PostDAO postDao;
     @Autowired
-    private LikeDAO likeDao;
+    private CommentDAO commentDAO;
     @Autowired
-    private CommentDAO commentDao;
-    @Autowired
-    private ShareDAO shareDao;
+    private LikeDAO likeDAO;
 
-    public List<Posts> getAllPost() {
-        return postDao.findAll();
-    }
-    public Likes getByPostId(Integer postId) {
-        return likeDao.findLikesByPostId(postId);
-    }
-
-    public Posts getPostById(int id) {
-        return postDao.findById(id).orElseThrow(() -> new RuntimeException("Không có id: " + id));
-    }
-
-    public Posts updatePost(Posts postDetails, int idPost) {
-        Posts post = postDao.findById(idPost).orElse(null);
-        if (post != null) {
-            post.setContent(postDetails.getContent());
-            post.setCreateDate(new Date());
-            post.setUser(postDetails.getUser());
-            postDao.save(post);
-        }
-        return postDao.save(post);
+    //  convert từ enity sang DTO
+    public PostDTO convertToPostDTO(Posts post) {
+        PostDTO postDTO = new PostDTO();
+        int commentCount = commentDAO.countByPostId(post.getId()); // You need to create this method
+        int likeCount = likeDAO.countByPostId(post.getId());
+        postDTO.setId(post.getId());
+        postDTO.setContent(post.getContent());
+        postDTO.setCreateDate(post.getCreateDate());
+        postDTO.setUsername(post.getUser() != null ? post.getUser().getUsername() : null);
+        postDTO.setCommentCount(commentCount);
+        postDTO.setLikeCount(likeCount);
+        return postDTO;
     }
 
-    public void deletePostById(int id) {
-        postDao.deleteById(id);
+    //  lấy tất cả dữ liệu
+    public Page<PostDTO> getPost(int page, int size, String search) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Posts> accounts = (search == null || search.isEmpty())
+                ? postDao.findAll(pageable)
+                : postDao.findByContentContainingIgnoreCase(search, pageable);
+        return accounts.map(this::convertToPostDTO);
     }
 
+    public void deletePost(int postId) {
+        postDao.deleteById(postId);
+    }
 }

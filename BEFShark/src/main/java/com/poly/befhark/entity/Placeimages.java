@@ -1,22 +1,22 @@
-package com.poly.befhark.model;
+package com.poly.befhark.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "CMTIMAGE")
-public class Cmtimage {
+@Table(name = "PLACEIMAGES")
+public class Placeimages {
     @Id
     @Column(name = "ID")
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "CMTID")
-    private Comments comment;
+    @JoinColumn(name = "PLACEID")
+    private Places place;
 
     @ManyToOne
     @JoinColumn(name = "IMAGE")
     private Images image;
+
 }

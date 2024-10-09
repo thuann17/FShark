@@ -1,6 +1,5 @@
-package com.poly.befhark.model;
+package com.poly.befhark.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -8,24 +7,30 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "SHARES")
-public class Shares {
+@Table(name = "NOTIFICATIONS")
+public class Notifications {
     @Id
     @Column(name = "ID")
     private Integer id;
 
-
     @Column(name = "CONTENT")
     private String content;
 
+    @Column(name = "STATUS")
+    private Boolean status;
+
     @Column(name = "CREATEDATE")
-    private Date createdate;
+    private Date createDate;
 
     @ManyToOne
-    @JoinColumn(name = "USERNAME")
-    private Users user;
+    @JoinColumn(name = "TYPE")
+    private Types type;
 
     @ManyToOne
     @JoinColumn(name = "POST")
     private Posts post;
+
+    @ManyToOne
+    @JoinColumn(name = "USERNAME")
+    private Users user;
 }

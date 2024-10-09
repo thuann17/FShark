@@ -1,4 +1,4 @@
-package com.poly.befhark.model;
+package com.poly.befhark.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -75,18 +75,23 @@ public class Users {
     private List<Friends> friends;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Likes> likes;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Usertrips> userTrips;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Notifications> notifications;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Shares> shares;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Groupmembers> groupMembers;
 
 }

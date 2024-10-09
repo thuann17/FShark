@@ -1,5 +1,4 @@
-package com.poly.befhark.model;
-
+package com.poly.befhark.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -8,16 +7,16 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "TYPES")
-public class Types {
+@Table(name = "USERROLES")
+public class Userroles {
     @Id
     @Column(name = "ID")
     private Integer id;
 
-    @Column(name = "TYLE")
-    private String tyle;
+    @Column(name = "ROLE")
+    private String role;
 
-    @OneToMany(mappedBy = "type")
+    @OneToMany(mappedBy = "userRoles")
     @JsonIgnore
-    private List<Notifications> notifications;
+    private List<Users> user;
 }

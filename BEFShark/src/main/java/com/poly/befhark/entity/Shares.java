@@ -1,19 +1,23 @@
-package com.poly.befhark.model;
+package com.poly.befhark.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
 
+@Data
 @Entity
-@Table(name = "LIKES")
-public class Likes {
+@Table(name = "SHARES")
+public class Shares {
     @Id
     @Column(name = "ID")
     private Integer id;
 
+    @Column(name = "CONTENT")
+    private String content;
+
     @Column(name = "CREATEDATE")
-    private Date createDate;
+    private Date createdate;
 
     @ManyToOne
     @JoinColumn(name = "USERNAME")
@@ -22,8 +26,4 @@ public class Likes {
     @ManyToOne
     @JoinColumn(name = "POST")
     private Posts post;
-
-    @ManyToOne
-    @JoinColumn(name = "COMMENT")
-    private Comments comment;
 }
