@@ -1,5 +1,6 @@
 package com.poly.befhark.DAO;
 
+import com.poly.befhark.DTO.PostDTO;
 import com.poly.befhark.entity.Posts;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,7 @@ import java.util.List;
 public interface PostDAO extends JpaRepository<Posts, Integer> {
     Page<Posts> findByContentContainingIgnoreCase(String title, Pageable pageable);
     long countByContentContainingIgnoreCase(String title);
+
     @Query(value = "EXEC GetPostsByYear :yearParam", nativeQuery = true)
-    List<Posts> findByYear(@Param("yearParam") int year);
+    int getPostByYear(@Param("yearParam") int year);
 }

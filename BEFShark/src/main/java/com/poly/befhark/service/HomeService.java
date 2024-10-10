@@ -1,6 +1,7 @@
 package com.poly.befhark.service;
 
 import com.poly.befhark.DAO.PostDAO;
+import com.poly.befhark.DAO.TripDAO;
 import com.poly.befhark.DTO.DashboardDTO;
 import com.poly.befhark.DTO.PostDTO;
 import com.poly.befhark.entity.Posts;
@@ -15,31 +16,14 @@ import java.util.List;
 public class HomeService {
     @Autowired
     private PostDAO postDAO;
+    @Autowired
+    private TripDAO tripDAO;
 
-
-    public Page<Posts> getPostsByContent(String content, Pageable pageable) {
-        return postDAO.findByContentContainingIgnoreCase(content, pageable);
+    public int countTripsByYear(int year) {
+        return tripDAO.getTripByYear(year);
     }
 
-
-    public long countPostsByContent(String content) {
-        return postDAO.countByContentContainingIgnoreCase(content);
-    }
-
-    public List<Posts> getPostsByYear(int year) {
-        return postDAO.findByYear(year);
-    }
-
-    public DashboardDTO getDashboardStatistics(int year) {
-        long totalPosts = postDAO.countByContentContainingIgnoreCase("");
-        List<Posts> postsByYear = postDAO.findByYear(year);
-
-        DashboardDTO dashboardDTO = new DashboardDTO();
-        dashboardDTO.setTotalPosts(totalPosts);
-//        dashboardDTO.setPostsByYear(postsByYear.size());
-
-
-
-        return dashboardDTO;
+    public int countPostsByYear(int year) {
+        return postDAO.getPostByYear(year);
     }
 }
