@@ -11,10 +11,10 @@ public class UserDTO {
     private Boolean active;
     private String email;
     private String firstname;
-    private String lastname;
     private Date birthday;
     private List<String> roles;
     private Boolean gender;
+    private String lastname;
     private String bio;
     private String hometown;
     private String currency;
