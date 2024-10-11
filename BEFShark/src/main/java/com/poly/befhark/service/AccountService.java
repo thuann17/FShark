@@ -18,7 +18,8 @@ public class AccountService {
     private UserDAO userDAO;
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
-// lấy tất cả nè
+
+    // lấy tất cả nè
     public Page<UserDTO> getAccounts(int page, int size, String search) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Users> accounts = (search == null || search.isEmpty())
@@ -27,7 +28,13 @@ public class AccountService {
 
         return accounts.map(this::convertToDTO);
     }
-// cập nhật nè
+
+    //     lấy 1 người
+    public UserDTO getAccountByUsername(String username) {
+        return userDAO.findById(username).map(this::convertToDTO).orElse(null);
+    }
+
+    // cập nhật nè
     public void updateAccountStatus(String username, Boolean active) {
         Users user = userDAO.findById(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
@@ -35,18 +42,22 @@ public class AccountService {
         userDAO.save(user);
         messagingTemplate.convertAndSend("/topic/account-status", convertToDTO(user));
     }
-// xoá nè
+
+    // xoá nè
     public void deleteAccount(String username) {
         userDAO.deleteById(username);
     }
-//convert từ entity sang DTO
-public UserDTO convertToDTO(Users user) {
+
+    //convert từ entity sang DTO
+    public UserDTO convertToDTO(Users user) {
         UserDTO dto = new UserDTO();
         dto.setUsername(user.getUsername());
+        dto.setHometown(user.getHometown());
         dto.setActive(user.getActive());
         dto.setEmail(user.getEmail());
         dto.setFirstname(user.getFirstname());
         dto.setLastname(user.getLastname());
+        dto.setBio(user.getBio());
         return dto;
     }
 }
